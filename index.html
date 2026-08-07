@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thousand Gold · Roster & SOP (20–30 Aug)</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --ink:#e9ecf1; --muted:#9aa4b2; --line:#262b34;
+    --do:#22a06b; --dont:#e05561; --accent:#e0a83e; --info:#3b82f6; --flag:#e0a83e;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Noto Sans SC","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;padding:28px 18px 60px}
+  .wrap{max-width:1000px;margin:0 auto}
+  h1{font-size:1.5rem;margin:0 0 2px}
+  .sub{color:var(--muted);font-size:.9rem;margin-bottom:16px}
+  .tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+  .tabs button{background:var(--panel);color:var(--muted);border:1px solid var(--line);
+    border-radius:9px;padding:9px 16px;font-size:.9rem;font-weight:600;cursor:pointer;font-family:inherit}
+  .tabs button:hover{color:var(--ink)}
+  .tabs button.active{background:#20344f;color:#cfe0ff;border-color:#2f5074}
+  .panel{display:none}
+  .panel.active{display:block}
+
+  /* ---------- ROSTER ---------- */
+  .p-roster .setup{background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.35);border-radius:9px;
+    padding:9px 13px;font-size:.85rem;margin-bottom:18px;color:#cfe0ff}
+  .p-roster .legend{display:flex;flex-wrap:wrap;gap:14px;margin:0 0 18px;font-size:.82rem}
+  .p-roster .legend span{display:inline-flex;align-items:center;gap:6px;color:var(--muted)}
+  .p-roster .dot{width:12px;height:12px;border-radius:3px;display:inline-block}
+  .p-roster .grid{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 12px 6px;overflow-x:auto}
+  .p-roster table{border-collapse:collapse;width:100%;min-width:760px}
+  .p-roster th{color:var(--muted);font-weight:500;font-size:.68rem;padding:0 0 8px}
+  .p-roster th.who{text-align:left;padding-left:6px}
+  .p-roster .hcol{text-align:center;width:52px}
+  .p-roster td{padding:0}
+  .p-roster .who{width:150px;text-align:left;font-size:.8rem;font-weight:600;white-space:nowrap;padding:0 8px 0 6px}
+  .p-roster .who small{color:var(--muted);font-weight:400;font-size:.72rem;margin-left:2px}
+  .p-roster .cell{height:24px;border-left:1px solid rgba(255,255,255,.045)}
+  .p-roster .prow{height:28px}
+  .p-roster .prow .cell{border-bottom:1px solid rgba(255,255,255,.03)}
+  .p-roster .dayhdr td{padding:14px 6px 5px;border-bottom:1px solid var(--line)}
+  .p-roster .dayhdr b{font-size:.9rem}
+  .p-roster .dayhdr span{color:var(--muted);font-size:.76rem;margin-left:8px}
+  .p-roster .notes{margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:680px){.p-roster .notes{grid-template-columns:1fr}}
+  .p-roster .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .p-roster .card h3{margin:0 0 10px;font-size:.95rem}
+  .p-roster .card ul{margin:0;padding-left:18px;font-size:.85rem;color:#d2d7df}
+  .p-roster .card li{margin-bottom:7px}
+  .p-roster .flagcard{border-color:rgba(224,168,62,.4);background:rgba(224,168,62,.07)}
+  .p-roster .flagcard h3{color:#f3d27a}
+
+  /* ---------- SOP (EN + CN) ---------- */
+  .p-sop .internal{display:inline-block;font-size:.72rem;font-weight:700;color:#f3d27a;
+    background:rgba(224,168,62,.14);border:1px solid rgba(224,168,62,.35);border-radius:20px;padding:3px 10px;margin-bottom:16px}
+  .p-sop .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:720px){.p-sop .grid{grid-template-columns:1fr}}
+  .p-sop .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+  .p-sop .card.full{grid-column:1 / -1}
+  .p-sop .card h2{margin:0 0 12px;font-size:1.05rem;display:flex;align-items:center;gap:9px}
+  .p-sop .num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:7px;
+    background:rgba(59,130,246,.16);color:#9cc2ff;font-size:.8rem;font-weight:700;flex:none}
+  .p-sop ul{margin:0;padding:0;list-style:none}
+  .p-sop li{position:relative;padding:5px 0 5px 26px;font-size:.9rem;color:#dfe4ec}
+  .p-sop li .mk{position:absolute;left:0;top:6px;font-weight:800;font-size:.85rem}
+  .p-sop .do .mk{color:var(--do)} .p-sop .dont .mk{color:var(--dont)} .p-sop .step .mk{color:var(--info)}
+  .p-sop .key{color:var(--accent);font-weight:700}
+  .p-sop .ladder{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 4px}
+  .p-sop .chip{background:#12151b;border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:.82rem}
+  .p-sop .chip b{color:var(--accent)}
+  .p-sop table{border-collapse:collapse;width:100%;margin-top:6px;font-size:.84rem}
+  .p-sop th,.p-sop td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line)}
+  .p-sop th{color:var(--muted);font-weight:500;font-size:.73rem}
+  .p-sop td.no{color:var(--dont);font-weight:600}
+  .p-sop td.yes{color:var(--do);font-weight:600}
+  .p-sop .callout{background:rgba(224,85,97,.10);border:1px solid rgba(224,85,97,.35);border-radius:9px;padding:10px 13px;font-size:.85rem;margin-top:10px}
+  .p-sop .callout b{color:#f2a3aa}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Thousand Gold — BSC · 20–30 Aug 2026</h1>
+  <div class="sub">event 10am–10pm · open 9:30am · staff roster &amp; booth SOP</div>
+
+  <div class="tabs">
+    <button data-target="roster" class="active">Roster</button>
+    <button data-target="sopen">Do's &amp; Don'ts</button>
+    <button data-target="sopcn">中文须知</button>
+  </div>
+
+  <!-- ===================== ROSTER ===================== -->
+  <div id="roster" class="panel p-roster active">
+    <div class="setup"><b>Pre-event set-up — Wed 19 Aug, ~10pm:</b> Wen + Jacky install the booth (night before Day 1 opens).</div>
+    <div class="legend" id="legend"></div>
+    <div class="grid">
+      <table>
+        <thead><tr id="hdr"><th class="who">Staff</th></tr></thead>
+        <tbody id="body"></tbody>
+      </table>
+    </div>
+    <div class="notes">
+      <div class="card">
+        <h3>Day anchors (9:30am–6:30pm)</h3>
+        <ul>
+          <li><b>Yisa</b> — Thu 20, Fri 21, Mon 24, Wed 26, Thu 27, Fri 28.</li>
+          <li><b>Faith</b> — Tue 25 (Maulidur Rasul) + weekend 2 (Sat 29 &amp; Sun 30).</li>
+          <li><b>Joyce</b> — weekend 1 (Sat 22 &amp; Sun 23), 12–10pm.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Wen (you)</h3>
+        <ul>
+          <li><b>Set-up — Wed 19 Aug ~10pm</b> — install the booth with Jacky (night before opening).</li>
+          <li><b>Day 1 (Thu 20)</b> — open at 9:30 &amp; guide Yisa through the first day.</li>
+          <li><b>12–3pm</b> on 21, 24, 25, 28, 29 — peak + lunch-break relief.</li>
+          <li><b>Sat 22</b> — open till 2pm + relieve Joyce 4–5pm (covering for Armand). <b>Sun 23 &amp; Sun 30 off.</b></li>
+          <li><b>Evening close (6–10pm)</b> — 20, 21, 24, 25, 28.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Armand &amp; Jacky</h3>
+        <ul>
+          <li><b>Armand</b> — not available until the 23rd. Sun 23 (open till 2pm + relieve Joyce 4–5pm), Sat 29 (night close 6–10pm), and Sun 30 (12–3 relief + close-down, replacing Wen). Off the stream nights (20, 26, 27).</li>
+          <li><b>Jacky</b> — set-up night (Wed 19 Aug ~10pm, with Wen); Wed 26 &amp; Thu 27: 12–3pm relief + evening close.</li>
+        </ul>
+      </div>
+      <div class="card flagcard">
+        <h3>⚠ Watch</h3>
+        <ul>
+          <li><b>Jacky (26 &amp; 27)</b> falls after his mum's results (~20 Aug) — have you or Armand ready to back up if the news is bad. (His 19 Aug set-up is before results.)</li>
+          <li><b>Tue 25</b> is Faith solo on the day — add Yisa if you expect holiday crowds?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== SOP ENGLISH ===================== -->
+  <div id="sopen" class="panel p-sop">
+    <div class="internal">INTERNAL — do not share with customers</div>
+    <div class="grid">
+      <div class="card full">
+        <h2><span class="num">⏰</span>Punctuality — mall fines apply</h2>
+        <ul>
+          <li class="do"><span class="mk">✓</span>Be on time for <span class="key">opening</span> — booth open and ready by 10:00am (team in from 9:30am to set up).</li>
+          <li class="do"><span class="mk">✓</span>Stay open until <span class="key">closing at 10:00pm</span> — don't start packing up early.</li>
+        </ul>
+        <div class="callout"><b>Mall management fines us</b> for opening late or closing early — please never be late to open or early to close.</div>
+      </div>
+      <div class="card">
+        <h2><span class="num">👕</span>Dress Code</h2>
+        <ul>
+          <li class="do"><span class="mk">✓</span>Wear plain clothing — preferred colours: <span class="key">black, white, nude, brown, navy</span>.</li>
+          <li class="dont"><span class="mk">✕</span>No big words or slogans; no visible brands, please.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2><span class="num">$</span>Discounts</h2>
+        <ul>
+          <li class="dont"><span class="mk">✕</span>Don't offer a discount openly. Sell at full price unless the customer asks.</li>
+          <li class="do"><span class="mk">✓</span>If they ask, you decide on the spot — <span class="key">no need to call Wen.</span></li>
+        </ul>
+        <div class="ladder">
+          <span class="chip"><b>Start 5%</b> off</span>
+          <span class="chip"><b>Up to 10%</b> if they buy more than 1</span>
+          <span class="chip"><b>15% max</b></span>
+        </div>
+        <ul>
+          <li class="do"><span class="mk">✓</span>Keep it clean — give a round <span class="key">RM10 or RM20</span> off instead of fiddling with a calculator.</li>
+          <li class="dont"><span class="mk">✕</span>No cents. Drop the tail — never "RM233.15", just round it down.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2><span class="num">🎁</span>Free Gift</h2>
+        <ul>
+          <li class="do"><span class="mk">✓</span>Free gift for anyone who follows our Instagram.</li>
+          <li class="do"><span class="mk">✓</span>It's a simple step — <span class="key">take their word for it</span>, no need to check.</li>
+        </ul>
+      </div>
+      <div class="card full">
+        <h2><span class="num">✎</span>Record Every Sale</h2>
+        <ul>
+          <li class="do"><span class="mk">✓</span>Right after each purchase, write down: <span class="key">which product</span>, the <span class="key">amount</span>, and <span class="key">how they paid</span>.</li>
+          <li class="step"><span class="mk">→</span>This is so we can key everything into the chat later — don't rely on memory.</li>
+        </ul>
+      </div>
+      <div class="card full">
+        <h2><span class="num">✂</span>Alterations — only when Wen is on-site</h2>
+        <ul>
+          <li class="dont"><span class="mk">✕</span>If Wen is <span class="key">not around, do not offer alterations</span> at all.</li>
+          <li class="do"><span class="mk">✓</span>Only offer on the days Wen is on-site (see table). Tell the customer pickup is about <span class="key">1 hour after Wen's arrival</span>, or offer to send it to them later.</li>
+          <li class="do"><span class="mk">✓</span>Take down their <span class="key">measurements</span> so we know how much to add.</li>
+          <li class="do"><span class="mk">✓</span>Always collect a <span class="key">50% deposit before any alteration work</span>.</li>
+        </ul>
+        <table>
+          <thead><tr><th>Day</th><th>Alterations</th><th>Wen arrives</th><th>Earliest pickup</th></tr></thead>
+          <tbody>
+            <tr><td>Thu 20</td><td class="yes">Yes</td><td>9:30am</td><td>~10:30am</td></tr>
+            <tr><td>Fri 21</td><td class="yes">Yes</td><td>12:00pm</td><td>~1:00pm</td></tr>
+            <tr><td>Sat 22</td><td class="no">No — Wen off</td><td>—</td><td>—</td></tr>
+            <tr><td>Sun 23</td><td class="no">No — Wen off</td><td>—</td><td>—</td></tr>
+            <tr><td>Mon 24</td><td class="yes">Yes</td><td>12:00pm</td><td>~1:00pm</td></tr>
+            <tr><td>Tue 25</td><td class="yes">Yes</td><td>12:00pm</td><td>~1:00pm</td></tr>
+            <tr><td>Wed 26</td><td class="no">No — Wen off</td><td>—</td><td>—</td></tr>
+            <tr><td>Thu 27</td><td class="no">No — Wen off</td><td>—</td><td>—</td></tr>
+            <tr><td>Fri 28</td><td class="yes">Yes</td><td>12:00pm</td><td>~1:00pm</td></tr>
+            <tr><td>Sat 29</td><td class="yes">Yes</td><td>12:00pm</td><td>~1:00pm</td></tr>
+            <tr><td>Sun 30</td><td class="yes">Yes</td><td>12:00pm</td><td>~1:00pm</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h2><span class="num">🛍</span>Packing</h2>
+        <ul>
+          <li class="do"><span class="mk">✓</span>Always ask if they need a <span class="key">bag</span> — small jewellery usually doesn't. Don't give one unless asked.</li>
+          <li class="do"><span class="mk">✓</span>Ask if they need a <span class="key">box</span> — some customers don't want one.</li>
+        </ul>
+        <div class="callout"><b>Packing standard (minimum):</b> stainless steel / sterling silver card · dust bag · vacuum bag · free gift.</div>
+      </div>
+      <div class="card full">
+        <h2><span class="num">🔍</span>Before Handover — Quality Check</h2>
+        <ul>
+          <li class="do"><span class="mk">✓</span>Check the piece is <span class="key">not tangled</span> before giving it to the client.</li>
+          <li class="do"><span class="mk">✓</span>Always <span class="key">double-bag</span> — stops it tangling on the way home.</li>
+          <li class="do"><span class="mk">✓</span>Always <span class="key">polish with a cloth</span> before handing over.</li>
+          <li class="do"><span class="mk">✓</span>Test that the <span class="key">clasps work</span> on every piece.</li>
+          <li class="do"><span class="mk">✓</span>Always <span class="key">offer to help the client put it on</span>.</li>
+          <li class="do"><span class="mk">✓</span>Before any earring <span class="key">try-on, wipe them with alcohol</span> first (hygiene).</li>
+        </ul>
+        <div class="callout"><b>Critical step — the clasps:</b> never skip it. Check every clasp opens and closes properly before the piece leaves the booth.</div>
+      </div>
+      <div class="card">
+        <h2><span class="num">🍽</span>Food &amp; Drink</h2>
+        <ul>
+          <li class="do"><span class="mk">✓</span>Eating at the booth is fine — but <span class="key">not on the main display table</span>.</li>
+          <li class="dont"><span class="mk">✕</span>Never leave <span class="key">open drinks on the main display table</span> — one spill on the jewellery is a disaster.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2><span class="num">☕</span>Breaks</h2>
+        <ul>
+          <li class="do"><span class="mk">✓</span>Opening shift takes lunch <span class="key">2–3pm</span>.</li>
+          <li class="do"><span class="mk">✓</span>Closing shift takes dinner <span class="key">5–6pm</span> — <span class="key">4–5pm on weekend 1</span> (22 &amp; 23).</li>
+          <li class="dont"><span class="mk">✕</span>Never leave the booth empty — make sure someone covers before you step away.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2><span class="num">💵</span>Cash Count</h2>
+        <ul>
+          <li class="do"><span class="mk">✓</span>Count the cash <span class="key">at the start</span> when opening.</li>
+          <li class="do"><span class="mk">✓</span>Count the cash <span class="key">at the end</span> when closing.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2><span class="num">🔓</span>Opening</h2>
+        <ul>
+          <li class="step"><span class="mk">→</span>Remove the <span class="key">black cloth first</span>, before opening the luggage with the expensive jewellery.</li>
+          <li class="do"><span class="mk">✓</span>Stow the black cloth <span class="key">inside the luggage bag</span> — otherwise it collects dust that ends up on our display.</li>
+          <li class="do"><span class="mk">✓</span>To clean dust off the display, always <span class="key">dab it with masking tape</span> — don't wipe.</li>
+          <li class="do"><span class="mk">✓</span>Count the cash to start the day.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2><span class="num">🔒</span>Closing</h2>
+        <ul>
+          <li class="do"><span class="mk">✓</span>Lock <span class="key">all expensive jewellery</span> back into the luggage.</li>
+          <li class="do"><span class="mk">✓</span>Hide the luggage <span class="key">under the table</span>.</li>
+          <li class="do"><span class="mk">✓</span>Count the cash to close the day.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== SOP CHINESE ===================== -->
+  <div id="sopcn" class="panel p-sop">
+    <div class="internal">内部文件 — 请勿与顾客分享</div>
+    <div class="grid">
+      <div class="card full">
+        <h2><span class="num">⏰</span>准时 — 迟到／早收会被罚款</h2>
+        <ul>
+          <li class="do"><span class="mk">✓</span>准时<span class="key">开档</span> — 摊位须在<span class="key">上午10:00前</span>开好并准备就绪（团队上午9:30到场布置）。</li>
+          <li class="do"><span class="mk">✓</span>营业至<span class="key">晚上10:00才收档</span> — 不要提早收拾。</li>
+        </ul>
+        <div class="callout"><b>商场管理层会因迟开档或提早收档而罚款</b> — 请务必不要迟开或早收。</div>
+      </div>
+      <div class="card">
+        <h2><span class="num">👕</span>着装要求</h2>
+        <ul>
+          <li class="do"><span class="mk">✓</span>穿素色服装 — 建议颜色：<span class="key">黑、白、裸色、棕、藏青</span>。</li>
+          <li class="dont"><span class="mk">✕</span>不要有大字标语；请勿露出品牌标志。</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2><span class="num">$</span>折扣</h2>
+        <ul>
+          <li class="dont"><span class="mk">✕</span>不要主动提供折扣。除非顾客开口要求，否则一律原价出售。</li>
+          <li class="do"><span class="mk">✓</span>如果顾客要求，你可<span class="key">当场决定 — 无需打电话给 Wen</span>。</li>
+        </ul>
+        <div class="ladder">
+          <span class="chip"><b>从 5%</b> 开始</span>
+          <span class="chip"><b>最多 10%</b>（买超过 1 件）</span>
+          <span class="chip"><b>最高 15%</b></span>
+        </div>
+        <ul>
+          <li class="do"><span class="mk">✓</span>尽量简单 — 直接减 <span class="key">RM10 或 RM20</span> 整数，别拿计算器慢慢算。</li>
+          <li class="dont"><span class="mk">✕</span>不要有零头 — 别出现「RM233.15」，直接抹掉尾数。</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2><span class="num">🎁</span>免费赠品</h2>
+        <ul>
+          <li class="do"><span class="mk">✓</span>凡关注我们 Instagram 的顾客都可获得免费赠品。</li>
+          <li class="do"><span class="mk">✓</span>步骤很简单 — <span class="key">相信顾客说的就好</span>，无需查证。</li>
+        </ul>
+      </div>
+      <div class="card full">
+        <h2><span class="num">✎</span>每笔交易都要记录</h2>
+        <ul>
+          <li class="do"><span class="mk">✓</span>每次成交后立即记下：<span class="key">哪件产品</span>、<span class="key">金额</span>、以及<span class="key">付款方式</span>。</li>
+          <li class="step"><span class="mk">→</span>以便我们稍后录入群组 — 不要靠记忆。</li>
+        </ul>
+      </div>
+      <div class="card full">
+        <h2><span class="num">✂</span>改件／调整 — 仅限 Wen 在场时</h2>
+        <ul>
+          <li class="dont"><span class="mk">✕</span>如果 Wen <span class="key">不在场，完全不要提供改件服务</span>。</li>
+          <li class="do"><span class="mk">✓</span>只在 Wen 在场的日子提供（见下表）。告诉顾客大约在 <span class="key">Wen 到场后 1 小时</span>可取件，或可稍后寄给他们。</li>
+          <li class="do"><span class="mk">✓</span>记下顾客的<span class="key">尺寸</span>，以便知道要加多少。</li>
+          <li class="do"><span class="mk">✓</span>任何改件工作开始前，务必先收取 <span class="key">50% 订金</span>。</li>
+        </ul>
+        <table>
+          <thead><tr><th>日期</th><th>可否改件</th><th>Wen 到场</th><th>最早取件</th></tr></thead>
+          <tbody>
+            <tr><td>8月20日（四）</td><td class="yes">可以</td><td>9:30am</td><td>约 10:30am</td></tr>
+            <tr><td>8月21日（五）</td><td class="yes">可以</td><td>12:00pm</td><td>约 1:00pm</td></tr>
+            <tr><td>8月22日（六）</td><td class="no">不可 — Wen 不在</td><td>—</td><td>—</td></tr>
+            <tr><td>8月23日（日）</td><td class="no">不可 — Wen 不在</td><td>—</td><td>—</td></tr>
+            <tr><td>8月24日（一）</td><td class="yes">可以</td><td>12:00pm</td><td>约 1:00pm</td></tr>
+            <tr><td>8月25日（二）</td><td class="yes">可以</td><td>12:00pm</td><td>约 1:00pm</td></tr>
+            <tr><td>8月26日（三）</td><td class="no">不可 — Wen 不在</td><td>—</td><td>—</td></tr>
+            <tr><td>8月27日（四）</td><td class="no">不可 — Wen 不在</td><td>—</td><td>—</td></tr>
+            <tr><td>8月28日（五）</td><td class="yes">可以</td><td>12:00pm</td><td>约 1:00pm</td></tr>
+            <tr><td>8月29日（六）</td><td class="yes">可以</td><td>12:00pm</td><td>约 1:00pm</td></tr>
+            <tr><td>8月30日（日）</td><td class="yes">可以</td><td>12:00pm</td><td>约 1:00pm</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h2><span class="num">🛍</span>包装</h2>
+        <ul>
+          <li class="do"><span class="mk">✓</span>一律先问顾客是否需要<span class="key">袋子</span> — 小件珠宝通常不需要。除非顾客要求，否则不给。</li>
+          <li class="do"><span class="mk">✓</span>问顾客是否需要<span class="key">盒子</span> — 有些顾客不要。</li>
+        </ul>
+        <div class="callout"><b>包装标准（最低要求）：</b>不锈钢／925 纯银卡 · 防尘袋 · 真空袋 · 免费赠品。</div>
+      </div>
+      <div class="card full">
+        <h2><span class="num">🔍</span>交付前 — 品质检查</h2>
+        <ul>
+          <li class="do"><span class="mk">✓</span>交给顾客前，检查饰品<span class="key">没有打结缠绕</span>。</li>
+          <li class="do"><span class="mk">✓</span>一律<span class="key">双层包装</span> — 避免顾客带回途中缠绕。</li>
+          <li class="do"><span class="mk">✓</span>交付前一律<span class="key">用布擦亮</span>。</li>
+          <li class="do"><span class="mk">✓</span>检查每件饰品的<span class="key">扣环是否正常</span>。</li>
+          <li class="do"><span class="mk">✓</span>一律主动<span class="key">帮顾客戴上</span>。</li>
+          <li class="do"><span class="mk">✓</span>顾客试戴耳环前，先用<span class="key">酒精擦拭</span>（卫生）。</li>
+        </ul>
+        <div class="callout"><b>关键步骤 — 扣环：</b>绝不可略过。饰品离开摊位前，检查每个扣环都能正常开合。</div>
+      </div>
+      <div class="card">
+        <h2><span class="num">🍽</span>饮食</h2>
+        <ul>
+          <li class="do"><span class="mk">✓</span>可以在摊位用餐 — 但<span class="key">不可在主展示桌上</span>。</li>
+          <li class="dont"><span class="mk">✕</span>绝不可在主展示桌上放<span class="key">没盖的饮料</span> — 一旦洒到珠宝就麻烦了。</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2><span class="num">☕</span>休息时间</h2>
+        <ul>
+          <li class="do"><span class="mk">✓</span>开档班次午休 <span class="key">2–3pm</span>。</li>
+          <li class="do"><span class="mk">✓</span>收档班次晚休 <span class="key">5–6pm</span> — <span class="key">第一个周末（22、23）为 4–5pm</span>。</li>
+          <li class="dont"><span class="mk">✕</span>绝不可让摊位无人看管 — 离开前务必确保有人接手。</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2><span class="num">💵</span>点算现金</h2>
+        <ul>
+          <li class="do"><span class="mk">✓</span>开档时<span class="key">先点算现金</span>。</li>
+          <li class="do"><span class="mk">✓</span>收档时<span class="key">再点算现金</span>。</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2><span class="num">🔓</span>开档</h2>
+        <ul>
+          <li class="step"><span class="mk">→</span>先<span class="key">取下黑布</span>，再打开装贵重珠宝的行李箱。</li>
+          <li class="do"><span class="mk">✓</span>把黑布<span class="key">收进行李袋里</span> — 否则会积灰，弄脏我们的展示品。</li>
+          <li class="do"><span class="mk">✓</span>清理展示品上的灰尘时，一律用<span class="key">美纹胶纸（masking tape）轻沾</span> — 不要擦拭。</li>
+          <li class="do"><span class="mk">✓</span>点算现金，开始一天。</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2><span class="num">🔒</span>收档</h2>
+        <ul>
+          <li class="do"><span class="mk">✓</span>把<span class="key">所有贵重珠宝锁回行李箱</span>。</li>
+          <li class="do"><span class="mk">✓</span>把行李箱<span class="key">藏在桌子底下</span>。</li>
+          <li class="do"><span class="mk">✓</span>点算现金，结束一天。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.tabs button').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.target).classList.add('active');
+      window.scrollTo(0,0);
+    });
+  });
+
+  const P={Wen:'#3b82f6', Faith:'#e0a83e', Yisa:'#0fb5ba', Armand:'#a274e8', Jacky:'#e061a6', Joyce:'#ef6f53'};
+  const HOURS=[9,10,11,12,13,14,15,16,17,18,19,20,21];
+  const fmt=h=>{const hh=Math.floor(h);const m=(h-hh)===0.5?':30':'';const ap=hh<12?'a':'p';const lab=hh===12?12:(hh>12?hh-12:hh);return lab+m+ap;};
+  const days=[
+    {d:'Thu 20 Aug', n:'Day 1 · Wen opens & guides Yisa · you close (Wuling stream, Armand out)', s:[['Yisa',9.5,18.5,14],['Wen',9.5,15],['Wen',18,22]]},
+    {d:'Fri 21 Aug', n:'Yisa day · Wen 12–3 (peak/relief) · you close', s:[['Yisa',9.5,18.5,14],['Wen',12,15],['Wen',18,22]]},
+    {d:'Sat 22 Aug', n:'Weekend 1 (peak) · Wen opens–2pm · Joyce 12–10 · Wen relieves 4–5 · (Armand out until 23rd)', s:[['Wen',9.5,14],['Joyce',12,22,16],['Wen',16,17]]},
+    {d:'Sun 23 Aug', n:'Weekend 1 (peak) · Armand opens–2pm · Joyce 12–10 · Armand relieves 4–5 (off early) · Wen off', s:[['Armand',9.5,14],['Joyce',12,22,16],['Armand',16,17]]},
+    {d:'Mon 24 Aug', n:'Yisa day · Wen 12–3 · you close', s:[['Yisa',9.5,18.5,14],['Wen',12,15],['Wen',18,22]]},
+    {d:'Tue 25 Aug', n:'Maulidur Rasul (holiday) · Faith day · Wen 12–3 · you close', s:[['Faith',9.5,18.5,14],['Wen',12,15],['Wen',18,22]]},
+    {d:'Wed 26 Aug', n:'Yisa day · Jacky 12–3 (relief) + close (Isetan stream, Armand out)', s:[['Yisa',9.5,18.5,14],['Jacky',12,15],['Jacky',18,22]]},
+    {d:'Thu 27 Aug', n:'Yisa day · Jacky 12–3 (relief) + close (Wuling stream, Armand out)', s:[['Yisa',9.5,18.5,14],['Jacky',12,15],['Jacky',18,22]]},
+    {d:'Fri 28 Aug', n:'Yisa day · Wen 12–3 · you close', s:[['Yisa',9.5,18.5,14],['Wen',12,15],['Wen',18,22]]},
+    {d:'Sat 29 Aug', n:'Weekend 2 · Faith day · Wen 12–3 · Armand night close', s:[['Faith',9.5,18.5,14],['Wen',12,15],['Armand',18,22]]},
+    {d:'Sun 30 Aug', n:'Weekend 2 · CLOSING — Faith day · Armand 12–3 + close-down (replaces Wen) · Wen off', s:[['Faith',9.5,18.5,14],['Armand',12,15],['Armand',18,22]]},
+  ];
+
+  document.getElementById('legend').innerHTML = Object.keys(P)
+    .map(name=>`<span><i class="dot" style="background:${P[name]}"></i>${name}</span>`).join('')
+    + `<span><i class="dot" style="background:repeating-linear-gradient(45deg,#9aa4b2 0 2px,transparent 2px 4px)"></i>on break</span>`;
+
+  const hdr=document.getElementById('hdr');
+  HOURS.forEach(h=>{ const th=document.createElement('th'); th.className='hcol'; th.textContent=fmt(h); hdr.appendChild(th); });
+
+  const tb=document.getElementById('body');
+  const ncols=HOURS.length+1;
+  days.forEach(day=>{
+    tb.insertAdjacentHTML('beforeend',
+      `<tr class="dayhdr"><td colspan="${ncols}"><b>${day.d}</b><span>${day.n}</span></td></tr>`);
+    day.s.forEach(sh=>{
+      const name=sh[0], st=sh[1], en=sh[2], bk=sh[3];
+      const c=P[name];
+      let cells='';
+      HOURS.forEach(h=>{
+        const lo=Math.max(st,h), hi=Math.min(en,h+1);
+        if(hi<=lo){ cells+='<td class="cell"></td>'; return; }
+        const left=(lo-h)*100, w=(hi-lo)*100;
+        if(bk!==undefined && h===bk){
+          cells+=`<td class="cell"><div style="height:16px;margin-left:${left}%;width:${w}%;background:repeating-linear-gradient(45deg,${c} 0 2px,transparent 2px 5px)"></div></td>`;
+          return;
+        }
+        const roundL=(lo===st), roundR=(hi===en);
+        let r='';
+        if(roundL&&roundR) r='border-radius:5px';
+        else if(roundL) r='border-radius:5px 0 0 5px';
+        else if(roundR) r='border-radius:0 5px 5px 0';
+        cells+=`<td class="cell"><div style="height:16px;margin-left:${left}%;width:${w}%;background:${c};${r}"></div></td>`;
+      });
+      const brNote = (bk!==undefined) ? ` · br ${fmt(bk)}–${fmt(bk+1)}` : '';
+      tb.insertAdjacentHTML('beforeend',
+        `<tr class="prow"><td class="who"><span class="dot" style="background:${c}"></span>${name} <small>${fmt(st)}–${fmt(en)}${brNote}</small></td>${cells}</tr>`);
+    });
+  });
+</script>
+</body>
+</html>
